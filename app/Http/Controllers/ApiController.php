@@ -40,19 +40,6 @@ class ApiController extends Controller
 
     return view('index', ['usuarios' => $paginator]);
 
-
-        // $response = Http::get('https://run.mocky.io/v3/ce47ee53-6531-4821-a6f6-71a188eaaee0');
-
-        // $usuarios = User::paginate(10);
-
-        // $usuarios = $response->json();
-        // // dd($usuarios['users']);
-
-        // return view('index', ['usuarios' => $usuarios['users']]);
-
-
-
-
     }
 
 }

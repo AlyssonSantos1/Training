@@ -20,13 +20,4 @@ Route::get('/', function () {
 
 Route::get('/index', [ApiController::class, 'showUsers']);
 
-Route::get('/usuarios/{id}/editar', [ApiController::class, 'editar']);
 
-Route::put('/usuarios/{id}', [ApiController::class, 'atualizar'])->name('atualizar_usuarios');
-
-
-Route::get('/results', [ApiController::class, 'showResults']);
-
-// Route::get('/usuarios', 'ApiController@index');
-
-// Route::get('/results', [ApiController::class, 'showResults']);
