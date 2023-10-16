@@ -1,8 +1,20 @@
-@foreach ($usuariosPaginados as $usuarios)
-    <ul>
-        @foreach ($usuarios as $usuario)
-        <li>{{  $usuario['users']  }}</li>
+<table>
+    <tr>
+        <th>name</th>
+        <th>age</th>
+        <th>email</th>
+    </tr>
+    @foreach ($usuarios as $usuario)
+    <tr>
+        <td> {{ $usuario['name'] ?? 'name' }}</td>
+        <td> {{ $usuario['age'] ?? 'age' }}</td>
+        <td> {{ $usuario['email'] ?? 'email' }}</td>
 
-        @endforeach
-    </ul>
-@endforeach
+    </tr>
+    @endforeach
+    {{ $usuarios->links() }}
+</table>
+
+
+
+

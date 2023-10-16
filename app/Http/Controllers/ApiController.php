@@ -3,21 +3,55 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class ApiController extends Controller
 {
-    public function index()
+    public function showUsers()
     {
-        $response = Http::get('https://run.mocky.io/v3/ce47ee53-6531-4821-a6f6-71a188eaaee0');
+        $page = LengthAwarePaginator::resolveCurrentPage();
 
-        $usuarios = $response->json();
+    $perPage = 10;
 
-        $usuariosPaginados = collect($usuarios)->chunk(10);
+    $request = Http::get('https://run.mocky.io/v3/ce47ee53-6531-4821-a6f6-71a188eaaee0/', [
+        'page' => $page,
+        'per_page' => $perPage,
+    ]);
 
-        return view('usuarios.index', compact('usuariosPaginados'));
+    $response = $request->json();
+
+    $users = collect($response['users']);
+
+    $paginator = new LengthAwarePaginator(
+        $users->forPage($page, $perPage),
+        $users->count(),
+        $perPage,
+        $page,
+        [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]
+    );
+
+    return view('index', ['usuarios' => $paginator]);
+
+
+        // $response = Http::get('https://run.mocky.io/v3/ce47ee53-6531-4821-a6f6-71a188eaaee0');
+
+        // $usuarios = User::paginate(10);
+
+        // $usuarios = $response->json();
+        // // dd($usuarios['users']);
+
+        // return view('index', ['usuarios' => $usuarios['users']]);
+
+
+
 
     }
 
